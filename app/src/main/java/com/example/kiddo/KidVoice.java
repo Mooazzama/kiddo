@@ -96,22 +96,7 @@ protected void onCreate(Bundle savedInstanceState)
         {
             // Populate the wordsList with the String values the recognition engine thought it heard
             final ArrayList < String > matches = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-           // if (matches.contains("learn ABC"))
-            //{
-            //    startActivity(new Intent(KidVoice.this, abc.class));
-           // }
-          //  if (matches.contains("learn 123"))
-           // {
-             //   startActivity(new Intent(KidVoice.this, numbers.class));
-            //}
-            //if (matches.contains("write 123"))
-            //{
-              //  startActivity(new Intent(KidVoice.this, learn1.class));
-            //}
-            //if (matches.contains("write abc"))
-            //{
-              //  startActivity(new Intent(KidVoice.this, learnabc.class));
-            //}
+
             if (matches.contains("learn ABC")) {
                abc();
            }
