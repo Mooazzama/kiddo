@@ -38,7 +38,7 @@ public class abc extends AppCompatActivity {
         relativeLayout = (RelativeLayout) findViewById(R.id.relativelayout1);
 
         button = (Button)findViewById(R.id.button);
-        button1 = (Button)findViewById(R.id.button2);
+        button1 = (Button)findViewById(R.id.playsoundCBtn);
 
         view = new SketchSheetView(abc.this);
 
@@ -80,6 +80,8 @@ public class abc extends AppCompatActivity {
         });
 
     }
+
+
 
     class SketchSheetView extends View {
 
@@ -159,5 +161,7 @@ public class abc extends AppCompatActivity {
             this.DrawingClassPaint = paint;
         }
     }
+
+
 
 }

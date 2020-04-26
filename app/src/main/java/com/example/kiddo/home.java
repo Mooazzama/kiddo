@@ -37,5 +37,21 @@ public class home extends AppCompatActivity {
             }
 
         });
+        final ImageButton button3 = findViewById(R.id.learnabcBtn);
+        button3.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(home.this, learnabc.class);
+                startActivity(intent);
+            }
+
+        });
+        final ImageButton button4 = findViewById(R.id.imageButton2);
+        button4.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(home.this, learn1.class);
+                startActivity(intent);
+            }
+
+        });
     }
 }

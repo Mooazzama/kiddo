@@ -17,7 +17,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".KidVoice"></activity>
+
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -30,6 +31,14 @@
         <activity android:name=".home" />
         <activity android:name=".numbers" />
         <activity android:name=".abc" />
+        <activity android:name=".KidVoice" />
+        <activity android:name=".learnabc" />
+        <activity android:name=".learnB" />
+        <activity android:name=".learnC" />
+        <activity android:name=".learn1" />
+        <activity android:name=".learn2" />
+        <activity android:name=".learn3" />
+        <activity android:name=".learn4" />
     </application>
 
 </manifest>
