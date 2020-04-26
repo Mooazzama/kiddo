@@ -1,138 +1,163 @@
 package com.example.kiddo;
 
-import androidx.appcompat.app.AppCompatActivity;
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.Paint;
+
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.RelativeLayout;
+import android.view.ViewGroup.LayoutParams;
 
-public class abc extends Activity {
+import androidx.appcompat.app.AppCompatActivity;
 
-    DrawingView dv ;
-    private Paint mPaint;
+import java.util.ArrayList;
+
+public class abc extends AppCompatActivity {
+    int[] myImageList = new int[]{R.drawable.alphab, R.drawable.alphac};
+    int count = 0;
+
+    RelativeLayout relativeLayout;
+    Paint paint;
+    View view;
+    Path path2;
+    Bitmap bitmap;
+    Canvas canvas;
+    Button button, button1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_abc);
-        RelativeLayout mtile = findViewById(R.id.mtile);
-        dv = new DrawingView(this);
-        mtile.addView(dv);
-        RelativeLayout rvtrans = new RelativeLayout(this);
-        rvtrans.setBackgroundResource(R.drawable.whitea);
-        mtile.addView(rvtrans);
-        mPaint = new Paint();
-        mPaint.setAntiAlias(true);
-        mPaint.setDither(true);
-        mPaint.setColor(Color.GREEN);
-        mPaint.setStyle(Paint.Style.STROKE);
-        mPaint.setStrokeJoin(Paint.Join.ROUND);
-        mPaint.setStrokeCap(Paint.Cap.ROUND);
-        mPaint.setStrokeWidth(12);
+
+        relativeLayout = (RelativeLayout) findViewById(R.id.relativelayout1);
+
+        button = (Button)findViewById(R.id.button);
+        button1 = (Button)findViewById(R.id.button2);
+
+        view = new SketchSheetView(abc.this);
+
+        paint = new Paint();
+
+        path2 = new Path();
+
+        relativeLayout.addView(view, new LayoutParams(
+                RelativeLayout.LayoutParams.MATCH_PARENT,
+                RelativeLayout.LayoutParams.MATCH_PARENT));
+
+        paint.setDither(true);
+
+//        paint.setColor(Color.parseColor("#000000"));
+
+        paint.setStyle(Paint.Style.STROKE);
+
+        paint.setStrokeJoin(Paint.Join.ROUND);
+
+        paint.setStrokeCap(Paint.Cap.ROUND);
+        paint.setColor(Color.GREEN);
+
+        paint.setStrokeWidth(12);
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                path2.reset();
+
+            }
+        });
+        button1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                relativeLayout.setBackgroundResource(myImageList[count]);
+                count++;
+            }
+        });
+
     }
 
-    public class DrawingView extends View {
+    class SketchSheetView extends View {
 
-        public int width;
-        public  int height;
-        private Bitmap mBitmap;
-        private Canvas mCanvas;
-        private Path mPath;
-        private Paint   mBitmapPaint;
-        Context context;
-        private Paint circlePaint;
-        private Path circlePath;
+        public SketchSheetView(Context context) {
 
-        public DrawingView(Context c) {
-            super(c);
-            context=c;
-            mPath = new Path();
-            mBitmapPaint = new Paint(Paint.DITHER_FLAG);
-            circlePaint = new Paint();
-            circlePath = new Path();
-            circlePaint.setAntiAlias(true);
-            circlePaint.setColor(Color.BLUE);
-            circlePaint.setStyle(Paint.Style.STROKE);
-            circlePaint.setStrokeJoin(Paint.Join.MITER);
-            circlePaint.setStrokeWidth(4f);
+            super(context);
+
+            bitmap = Bitmap.createBitmap(820, 480, Bitmap.Config.ARGB_4444);
+
+            canvas = new Canvas(bitmap);
+
+//            this.setBackgroundColor(Color.WHITE);
         }
 
-        @Override
-        protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-            super.onSizeChanged(w, h, oldw, oldh);
-
-            mBitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
-            mCanvas = new Canvas(mBitmap);
-
-        }
-        @Override
-        protected void onDraw(Canvas canvas) {
-            super.onDraw(canvas);
-            canvas.drawBitmap( mBitmap, 0, 0, mBitmapPaint);
-            canvas.drawPath( mPath,  mPaint);
-            canvas.drawPath( circlePath,  circlePaint);
-        }
-
-        private float mX, mY;
-        private static final float TOUCH_TOLERANCE = 4;
-
-        private void touch_start(float x, float y) {
-            mPath.reset();
-            mPath.moveTo(x, y);
-            mX = x;
-            mY = y;
-            Log.d("start xy==>", x+","+y);
-        }
-        private void touch_move(float x, float y) {
-            Log.d("move xy==>", x+","+y);
-            float dx = Math.abs(x - mX);
-            float dy = Math.abs(y - mY);
-            if ((dx >= TOUCH_TOLERANCE || dy >= TOUCH_TOLERANCE)) {
-                mPath.quadTo(mX, mY, (x + mX)/2, (y + mY)/2);
-                mX = x;
-                mY = y;
-            /*  circlePath.reset();
-                circlePath.addCircle(mX, mY, 30, Path.Direction.CW);*/
-            }
-        }
-        private void touch_up() {
-            mPath.lineTo(mX, mY);
-            Log.d("end xy", mX+","+mY);
-            circlePath.reset();
-            // commit the path to our offscreen
-            mCanvas.drawPath(mPath,  mPaint);
-            // kill this so we don't double draw
-            mPath.reset();
-        }
+        private ArrayList<DrawingClass> DrawingClassArrayList = new ArrayList<DrawingClass>();
 
         @Override
         public boolean onTouchEvent(MotionEvent event) {
-            float x = event.getX();
-            float y = event.getY();
-            switch (event.getAction()) {
-                case MotionEvent.ACTION_DOWN:
-                    touch_start(x, y);
-                    invalidate();
-                    break;
-                case MotionEvent.ACTION_MOVE:
-                    touch_move(x, y);
-                    invalidate();
-                    break;
-                case MotionEvent.ACTION_UP:
-                    touch_up();
-                    invalidate();
-                    break;
+
+            DrawingClass pathWithPaint = new DrawingClass();
+
+            canvas.drawPath(path2, paint);
+
+            if (event.getAction() == MotionEvent.ACTION_DOWN) {
+
+                path2.moveTo(event.getX(), event.getY());
+
+                path2.lineTo(event.getX(), event.getY());
             }
+            else if (event.getAction() == MotionEvent.ACTION_MOVE) {
+
+                path2.lineTo(event.getX(), event.getY());
+
+                pathWithPaint.setPath(path2);
+
+                pathWithPaint.setPaint(paint);
+
+                DrawingClassArrayList.add(pathWithPaint);
+            }
+
+            invalidate();
             return true;
         }
+
+        @Override
+        protected void onDraw(Canvas canvas) {
+            super.onDraw(canvas);
+            if (DrawingClassArrayList.size() > 0) {
+
+                canvas.drawPath(
+                        DrawingClassArrayList.get(DrawingClassArrayList.size() - 1).getPath(),
+
+                        DrawingClassArrayList.get(DrawingClassArrayList.size() - 1).getPaint());
+            }
+        }
     }
+
+    public class DrawingClass {
+
+        Path DrawingClassPath;
+        Paint DrawingClassPaint;
+
+        public Path getPath() {
+            return DrawingClassPath;
+        }
+
+        public void setPath(Path path) {
+            this.DrawingClassPath = path;
+        }
+
+
+        public Paint getPaint() {
+            return DrawingClassPaint;
+        }
+
+        public void setPaint(Paint paint) {
+            this.DrawingClassPaint = paint;
+        }
+    }
+
 }
