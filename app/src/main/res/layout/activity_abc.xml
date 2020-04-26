@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#8BC34A"
 
+    android:background="#8BC34A"
     android:weightSum="100"
     tools:context=".abc">
 
@@ -15,12 +15,35 @@
         android:layout_width="match_parent"
         android:layout_height="383dp"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="20dp"
         android:layout_weight="90"
         android:background="@drawable/alpha"
         android:gravity="center_vertical">
 
 
     </RelativeLayout>
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10dp"
+        android:layout_weight="10"
+        android:background="@android:drawable/ic_media_rew" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="50dp"
+
+        android:layout_height="50dp"
+        android:layout_above="@+id/button"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="17dp"
+        android:layout_marginRight="17dp"
+        android:layout_marginBottom="-48dp"
+        android:background="@android:drawable/ic_media_ff" />
 
 </RelativeLayout>

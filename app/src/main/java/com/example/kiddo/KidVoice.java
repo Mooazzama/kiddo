@@ -66,10 +66,18 @@ protected void onCreate(Bundle savedInstanceState)
      * Handle the action of the button being clicked
      */
 
-    public void abc() {
+    public void learnabc() {
+    startActivity(new Intent(KidVoice.this, learnabc.class));
+}
+    public void writeabc() {
         startActivity(new Intent(KidVoice.this, abc.class));
     }
-
+    public void writenumber() {
+        startActivity(new Intent(KidVoice.this, numbers.class));
+    }
+    public void learnnumber() {
+        startActivity(new Intent(KidVoice.this, learn1.class));
+    }
     /**
      * Fire an intent to start the voice recognition activity.
      */
@@ -98,8 +106,17 @@ protected void onCreate(Bundle savedInstanceState)
             final ArrayList < String > matches = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
 
             if (matches.contains("learn ABC")) {
-               abc();
-           }
+            learnabc();
+        }
+            if (matches.contains("write ABC")) {
+                writeabc();
+            }
+            if (matches.contains("write 123")) {
+                writenumber();
+            }
+            if (matches.contains("learn 123")) {
+                learnnumber();
+            }
             if (!matches.isEmpty())
             {
                 String Query = matches.get(0);

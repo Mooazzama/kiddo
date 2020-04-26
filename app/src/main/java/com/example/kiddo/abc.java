@@ -38,7 +38,7 @@ public class abc extends AppCompatActivity {
         relativeLayout = (RelativeLayout) findViewById(R.id.relativelayout1);
 
         button = (Button)findViewById(R.id.button);
-        button1 = (Button)findViewById(R.id.playsoundCBtn);
+        button1 = (Button)findViewById(R.id.button2);
 
         view = new SketchSheetView(abc.this);
 
@@ -61,7 +61,7 @@ public class abc extends AppCompatActivity {
         paint.setStrokeCap(Paint.Cap.ROUND);
         paint.setColor(Color.GREEN);
 
-        paint.setStrokeWidth(12);
+        paint.setStrokeWidth(20);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,8 +80,6 @@ public class abc extends AppCompatActivity {
         });
 
     }
-
-
 
     class SketchSheetView extends View {
 
@@ -162,6 +160,5 @@ public class abc extends AppCompatActivity {
         }
     }
 
-
-
 }
+

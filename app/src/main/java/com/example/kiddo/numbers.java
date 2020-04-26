@@ -38,7 +38,7 @@ public class numbers extends AppCompatActivity {
         relativeLayout = (RelativeLayout) findViewById(R.id.relativelayout1);
 
         button = (Button)findViewById(R.id.button);
-        button1 = (Button)findViewById(R.id.playsoundCBtn);
+        button1 = (Button)findViewById(R.id.button2);
 
         view = new SketchSheetView(numbers.this);
 
